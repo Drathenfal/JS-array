@@ -1,0 +1,57 @@
+//Mix ins
+
+//media queries
+
+@mixin mq($break) {
+    @if $break == "xsmall" {
+        @media (min-width: $break-xsmall) and (max-width: $break-small) {
+            @content;
+    }
+}
+@else if $break == "small" {
+    @media (min-width: $break-small) {
+            @content;
+    }
+} 
+@else if $break == "medium" {
+    @media (min-width: $break-medium) {
+            @content;
+    }
+}
+@else if $break == "large" {
+    @media (min-width: $break-large) {
+            @content;
+    }
+}
+@else if $break == "xlarge" {
+    @media (min-width: $break-xlarge) {
+            @content;
+    }
+}
+@else if $break == "xxlarge" {
+    @media (min-width: $break-xxlarge) {
+            @content;
+    }
+}
+@else {
+    @error "#{$break} isnt a valid media query size!!";
+    }
+}
+
+//General Button
+@mixin button ($margin,$bgcolor,$bgcolor-hover){
+    display:inline-block;
+    white-space: nowrap;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 35px;
+    font-size: 20px;
+    border-radius: 6px;
+    padding: 10px 30px;
+    margin: $margin;
+    text-align: center;
+    background-color: $bgcolor;
+    &:hover {
+        background-color: $bgcolor-hover;
+}
+}

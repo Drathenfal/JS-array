@@ -1,0 +1,82 @@
+//generic
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    @include mq(small){
+        width: 460px;
+    }
+    @include mq(medium){
+        width: 768px;
+    }
+    @include mq(large){
+        width: 748px; 
+    }
+    @include mq(xlarge){
+        width: 1000px;
+    }
+    @include mq(xxlarge){
+        width: 1250px;
+    }
+}
+
+.flex-column-center{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-by-side{
+    display: flex;
+    flex-direction: column;
+    @include mq (large){
+        flex-direction: row;
+    }
+}
+
+h1 {
+    font-size: 2rem;
+    @include mq (medium){
+        font-size: 4rem;
+    }
+    font-weight: $font-weight--bold;
+    text-align: center;
+        padding: 25px 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    @include mq (medium){
+        font-size: 2rem;
+    }
+    font-weight: $font-weight--bold;
+    text-align: center;
+        padding: 25px 0;
+}
+
+body {
+    margin: 0;
+    background-color: $dark-color;
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-weight: $font-weight--light;
+    font-size: 1.2rem;
+    letter-spacing: .4px;
+    
+    a:hover{
+        cursor: pointer;
+    }
+    button:hover{
+        cursor: pointer;
+    }
+
+    button {
+        @include button (20px 10px,green,blue)
+    }
+}
