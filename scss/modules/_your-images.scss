@@ -3,6 +3,7 @@
 .email-linked-image{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     @include mq (large){
         flex-direction: row;
     }

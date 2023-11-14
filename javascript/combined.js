@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailEntry = document.querySelector('.email-entry');
     const errorDisplay = document.querySelector('.error');
     const emailLinkedImage = document.querySelector('.email-linked-image');
+    const linkedEmailName = document.querySelector('.linked-email-name');
     const emailImages = [];
 
     emailForm.addEventListener('submit', function (e) {
@@ -40,18 +41,22 @@ document.addEventListener('DOMContentLoaded', function () {
             errorDisplay.innerText = 'Provide a valid email address';
         } else {
             errorDisplay.innerText = '';
-            // Add the current image source to the array
+            // Add the current image source and email to the array
             const imageElement = document.getElementById('image');
             const imageSrc = imageElement.src;
-            emailImages.push(imageSrc);
+            emailImages.push({ src: imageSrc, email: emailValue });
 
-            // Create image tags for each image in the array
+            // Create image tags and update linked email for each image in the array
             let imagesHTML = '';
-            for (const image of emailImages) {
-                imagesHTML += `<img src="${image}" alt="Linked Image" style="max-width:100%;" /><br>`;
+            for (const imageData of emailImages) {
+                imagesHTML += `<div class="image-container"><img src="${imageData.src}" alt="Linked Image" /></div>`;
             }
 
             emailLinkedImage.innerHTML = imagesHTML;
+
+            // Update linked email name
+            linkedEmailName.innerText = emailValue;
+
             showClearButton();
         }
     });
@@ -71,8 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add event listener to the Clear Images button
     const clearImagesButton = document.querySelector('.clear-image-button');
     clearImagesButton.addEventListener('click', () => {
-        emailImages.length = 0; // Clear the array of saved images
+        emailImages.length = 0; // Clear the array of saved images and emails
         emailLinkedImage.innerHTML = ''; // Clear the displayed images
+        linkedEmailName.innerText = ''; // Clear the linked email name
         clearImagesButton.style.display = 'none'; // Hide the Clear Images button
     });
 });
