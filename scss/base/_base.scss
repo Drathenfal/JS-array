@@ -60,6 +60,16 @@ h2 {
         padding: 25px 0;
 }
 
+// h3 {
+//     font-size: 1.1rem;
+//     @include mq (medium){
+//         font-size: 1.5rem;
+//     }
+//     font-weight: $font-weight--bold;
+//     text-align: center;
+//         padding-bottom: 10px;
+// }
+
 body {
     margin: 0;
     background-color: $dark-color;
