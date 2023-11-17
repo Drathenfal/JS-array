@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorDisplay = document.querySelector('.error');
     const emailLinkedImage = document.querySelector('.email-linked-image');
     const linkedEmailName = document.querySelector('.linked-email-name');
-    const emailImages = [];
+    const emailImages = {};
 
     emailForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -41,23 +41,33 @@ document.addEventListener('DOMContentLoaded', function () {
             errorDisplay.innerText = 'Provide a valid email address';
         } else {
             errorDisplay.innerText = '';
-            // Add the current image source and email to the array
+
+            // Add the current image source to the array for the email
             const imageElement = document.getElementById('image');
             const imageSrc = imageElement.src;
-            emailImages.push({ src: imageSrc, email: emailValue });
 
-            // Create image tags and update linked email for each image in the array
-            let imagesHTML = '';
-            for (const imageData of emailImages) {
-                imagesHTML += `<div class="image-container"><img src="${imageData.src}" alt="Linked Image" /></div>`;
+            if (!emailImages[emailValue]) {
+                emailImages[emailValue] = [];
             }
 
-            emailLinkedImage.innerHTML = imagesHTML;
+            if (!emailImages[emailValue].includes(imageSrc)) {
+                emailImages[emailValue].push(imageSrc);
 
-            // Update linked email name
-            linkedEmailName.innerText = emailValue;
+                // Create image tags for each image in the array
+                let imagesHTML = '';
+                for (const image of emailImages[emailValue]) {
+                    imagesHTML += `<div class="image-container"><img src="${image}" alt="Linked Image" /></div>`;
+                }
 
-            showClearButton();
+                emailLinkedImage.innerHTML = imagesHTML;
+
+                // Update linked email name
+                linkedEmailName.innerText = emailValue;
+
+                showClearButton();
+            } else {
+                errorDisplay.innerText = 'This image is already assigned to the email.';
+            }
         }
     });
 
@@ -76,7 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add event listener to the Clear Images button
     const clearImagesButton = document.querySelector('.clear-image-button');
     clearImagesButton.addEventListener('click', () => {
-        emailImages.length = 0; // Clear the array of saved images and emails
+        for (const email in emailImages) {
+            emailImages[email] = [];
+        }
+
         emailLinkedImage.innerHTML = ''; // Clear the displayed images
         linkedEmailName.innerText = ''; // Clear the linked email name
         clearImagesButton.style.display = 'none'; // Hide the Clear Images button
